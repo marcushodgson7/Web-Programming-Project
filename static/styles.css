@@ -1,0 +1,41 @@
+:root {
+    --main-color: #006;
+    --accent-color: #06c;
+    --background-color: #d9e3f1;
+}
+
+h1 {
+    color: var(--main-color);
+    /* background: var(--accent-color); */
+    text-align: center;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+
+.loginButton {
+    background-color: var(--main-color);
+}
+
+.resultRow:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+
+.resultRow.selected {
+    background-color: green;
+}
+
+.searchResultButton {
+    background-color: rgba(50, 140, 231, 0.636);
+    color: white;
+    max-width: 100%;
+    padding-left:25px;
+    padding-right:25px;
+}
+
+.searchResultsGroup {
+    margin: 2px;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+      <title>Yale-P Website</title>
+      <!-- Latest compiled and minified CSS -->
+      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+      <!-- Optional theme -->
+      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+      <link rel="stylesheet" href="../static/bootstrap.min.css">
+      <link rel="stylesheet" href="../static/styles.css">
+   </head>
+   <body>
+      <div style="padding: 10px">
+         <button onclick="location.href='index'">Home</button>
+         <button onclick="location.href='profile'">My Profile</button>
+     </div>
+     <div style="text-align: right; padding: 10px">
+      <button onclick="location.href='logout'">Log out</button>
+      </div>
+      <div style="max-width: 1500px; margin: 0 auto; padding: 10px">
+         <h1>Building Search</h1>
+         <strong>Please enter a building name:</strong>
+         <input class="form-control" type="text" id="buildingInput" autoFocus>
+         <strong>Search buildings by tags:</strong>
+         <input class="form-control" type="text" id="tagInput" placeholder="academic, dormitory, athletics, etc." autoFocus>
+         <br>
+         <div>
+            <strong>See what your friends are reviewing! Click to see their profile!</strong>
+         </div>
+         {% for user in users%}
+            <hr>
+            <a href="userProfiles?id={{user[0]}}">{{user[1]}}</a>
+            <small>{{user[2]}} {{user[3]}}</small>
+            <small>{{user[4]}}</small>
+         {% endfor %}
+      </div>
+
+      <script 
+      src= "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+      </script>
+      <!-- Latest compiled and minified JavaScript -->
+      <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+      </script>
+      
+      <!-- <script src="static/jquery.min.js"></script> -->
+
+      <script>
+         'use strict';
+
+         function handleResponse(data)
+         {
+            let inner = '<div class="searchResultsGroup col-6 btn-group-vertical" role="group" aria-label="Vertical button group">'
+               data.forEach(b => inner += '<button class="searchResultButton btn btn-" onclick="location.href=\'/info?name=' + b[1] + '\';">' + b[1]+ '</button>')
+               inner += '</div>'
+               $('#searchResults').html(inner);
+         }
+
+         let request = null;
+
+         function getResults()
+         {
+            let building = $('#buildingInput').val();
+            building = encodeURIComponent(building);
+            let url = '/search?building=' + building
+
+            if (request != null)
+               request.abort();
+
+            request = $.ajax({
+               type: 'GET',
+               url: url,
+               success: handleResponse
+            });
+         }
+
+         function getTag()
+         {
+            let tag = $('#tagInput').val();
+            tag = encodeURIComponent(tag);
+            let url = '/tagsearch?tag=' + tag
+            if (request != null)
+               request.abort();
+
+            request = $.ajax({
+               type: 'GET',
+               url: url,
+               success: handleResponse
+            });
+         }
+
+
+         function setup()
+         {
+            $('#buildingInput').on('input', getResults);
+            $('#tagInput').on('input', getTag);
+         }
+
+         $('document').ready(setup);
+      </script>  
+      <div id="searchResults"></div>  
+   </body>
+ </html>
