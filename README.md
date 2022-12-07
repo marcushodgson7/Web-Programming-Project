@@ -1,2 +1,5 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=8937146&assignment_repo_type=AssignmentRepo)
  
+This project was for a Web Programming course at Yale. It connects to a Yale Informations API, where the information can be extracted neatly into a sql database. The users can access the website and create their own profile by using the sign up page. They are able to query the database for buildings, and click on any of them for the building information! Additionally, the user is able to leave reviews on a building by commenting and uploading pictures. They are able to search for other comments, and upvote/downvote the comments of another user. Finally, there is a home profile page that shows a list of all the comments the user has made.
+
+To access this website: run create_sql_script.py followed by create.py, which are located in /database/create. Finally, run "runserver.py" followed by a port of your choice, and click the link to use the webite in your browser!
